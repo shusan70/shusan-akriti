@@ -394,3 +394,29 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.album-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.album-item > button {
+  border-radius: 30px;
+}
+
+.album-item .delete-album {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #8c3939;
+  color: white;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.album-item .delete-album:hover {
+  background: #642626;
+}
