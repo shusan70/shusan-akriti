@@ -1,25 +1,27 @@
 
-import { isAdmin } from '../_auth.js';
-
-export async function onRequestDelete({ request, params, env }) {
-  if (!(await isAdmin(request, env))) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export async function onRequestGet({ params, env }) {
   const id = Number(params.id);
 
   if (!Number.isInteger(id) || id < 1) {
-    return Response.json({ error: 'Invalid album ID' }, { status: 400 });
+    return new Response('Invalid image ID', { status: 400 });
   }
 
   try {
-    await env.DB.batch([
-      env.DB.prepare('DELETE FROM photos WHERE album_id = ?').bind(id),
-      env.DB.prepare('DELETE FROM albums WHERE id = ?').bind(id)
-    ]);
+    const photo = await env.DB.prepare(
+      'SELECT image, mime_type FROM photos WHERE id = ?'
+    ).bind(id).first();
 
-    return Response.json({ success: true });
+    if (!photo || !photo.image) {
+      return new Response('Image not found', { status: 404 });
+    }
+
+    return new Response(photo.image, {
+      headers: {
+        'Content-Type': photo.mime_type || 'image/webp',
+        'Cache-Control': 'public, max-age=86400'
+      }
+    });
   } catch {
-    return Response.json({ error: 'Could not delete album' }, { status: 500 });
+    return new Response('Unable to load image', { status: 500 });
   }
 }
