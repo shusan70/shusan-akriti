@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f5ef">
+  <title>Shusan & Akriti | Our Memories</title>
+  <meta name="description" content="A collection of memories, journeys and special moments of Shusan and Akriti.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="logo">S <span>&</span> A</a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#memories">Our Memories</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <button id="adminBtn">Admin Login</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <p class="eyebrow">OUR STORY • OUR JOURNEY</p>
+      <h1>Shusan <span>&</span> Akriti</h1>
+      <p class="hero-text">Two hearts, countless memories, one beautiful journey.</p>
+      <a href="#memories" class="explore">Explore Our Memories ↓</a>
+    </section>
+
+    <section class="memories" id="memories">
+      <p class="eyebrow">CAPTURED MOMENTS</p>
+      <h2>Our Memories</h2>
+      <p class="section-text">Every place has a story. Every photograph holds a memory.</p>
+
+      <div id="albumList" class="album-list"></div>
+      <div id="photoGallery" class="photo-gallery"></div>
+    </section>
+
+    <section class="about" id="about">
+      <p class="eyebrow">A LITTLE ABOUT US</p>
+      <h2>Our Beautiful Journey</h2>
+      <p>Welcome to our personal collection of memories, travels and special moments together.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with love by Shusan & Akriti ♥</p>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <button id="closeAdmin" class="close">&times;</button>
+      <h2>Admin Login</h2>
+      <form id="loginForm">
+        <input type="password" id="adminPassword" placeholder="Enter password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p id="loginMessage"></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
