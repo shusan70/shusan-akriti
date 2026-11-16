@@ -1,11 +1,14 @@
 
+import { createToken } from './_auth.js';
+
 export async function onRequestPost({ request, env }) {
   try {
-    const { password } = await request.json();
+    const data = await request.json();
+    const password = data.password;
 
     if (!env.ADMIN_PASSWORD) {
       return Response.json(
-        { error: 'Admin password is not configured' },
+        { error: 'Admin password not configured' },
         { status: 500 }
       );
     }
@@ -21,19 +24,23 @@ export async function onRequestPost({ request, env }) {
       );
     }
 
-    const token = crypto.randomUUID() + crypto.randomUUID();
-
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-store',
-      'Set-Cookie': `sa_admin=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`
-    });
+    const token = await createToken(env.ADMIN_PASSWORD);
 
     return new Response(
       JSON.stringify({ success: true }),
-      { status: 200, headers }
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+          'Set-Cookie': `sa_admin=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`
+        }
+      }
     );
   } catch {
-    return Response.json({ error: 'Login failed' }, { status: 400 });
+    return Response.json(
+      { error: 'Login failed' },
+      { status: 400 }
+    );
   }
 }
