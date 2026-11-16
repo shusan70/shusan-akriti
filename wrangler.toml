@@ -1,0 +1,9 @@
+
+name = "shusan-akriti"
+compatibility_date = "2026-11-16"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "shusan-akriti-gallery"
+database_id = "fc51b1be-e1ab-42c6-98a0-02de47173978"
